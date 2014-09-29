@@ -10,6 +10,14 @@
 include_recipe "logstash::yumrepo" if platform_family? "rhel", "fedora"
 include_recipe "logstash::apt"     if platform_family? "debian"
 
+# Define new application user
+group "logstash"
+user "logstash" do
+  group "logstash"
+  system true
+  shell "/bin/bash"
+end
+
 directory "/etc/logstash" do
   owner "logstash"
   group "logstash"
